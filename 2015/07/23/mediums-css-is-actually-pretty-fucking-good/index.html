@@ -1,0 +1,752 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Medium,CSS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Medium 的 CSS 真他*的好
+翻译自 Medium by fat
+
+
+I always believe that to be the best, you have to smell like the best, dress like the best, act like the best. When you throw your trash in the garbage can, it h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Medium 的 CSS 真他*的好">
+<meta property="og:url" content="http://zoomzhao.github.com/2015/07/23/mediums-css-is-actually-pretty-fucking-good/index.html">
+<meta property="og:site_name" content="Zoom's Blog">
+<meta property="og:description" content="Medium 的 CSS 真他*的好
+翻译自 Medium by fat
+
+
+I always believe that to be the best, you have to smell like the best, dress like the best, act like the best. When you throw your trash in the garbage can, it h">
+<meta property="og:updated_time" content="2016-12-27T08:12:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Medium 的 CSS 真他*的好">
+<meta name="twitter:description" content="Medium 的 CSS 真他*的好
+翻译自 Medium by fat
+
+
+I always believe that to be the best, you have to smell like the best, dress like the best, act like the best. When you throw your trash in the garbage can, it h">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zoomzhao.github.com/2015/07/23/mediums-css-is-actually-pretty-fucking-good/"/>
+
+
+
+
+
+  <title> Medium 的 CSS 真他*的好 | Zoom's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Zoom's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zoomzhao.github.com/2015/07/23/mediums-css-is-actually-pretty-fucking-good/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="ZoomZhao">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Zoom's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Zoom's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Medium 的 CSS 真他*的好
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-23T21:34:10+08:00">
+                2015-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/front-end/" itemprop="url" rel="index">
+                    <span itemprop="name">front-end</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Medium-的-CSS-真他-的好"><a href="#Medium-的-CSS-真他-的好" class="headerlink" title="Medium 的 CSS 真他*的好"></a>Medium 的 CSS 真他*的好</h1><ul>
+<li>翻译自 <a href="https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06" target="_blank" rel="external">Medium by fat</a></li>
+</ul>
+<blockquote>
+<p>I always believe that to be the best, you have to smell like the best, dress like the best, act like the best. When you throw your trash in the garbage can, it has to be better than anybody else who ever threw trash in the garbage can.   </p>
+<p>— Lil Wayne</p>
+</blockquote>
+<p>一段时间以来，我都想要写一些关于 Medium CSS 的东西。关于 Medium 的 CSS 有什么样的故事？我们做了哪些不一样的事情？怎么才能像我们一样做，或者可以从我们这学到点什么？</p>
+<p>以下包括一些 CSS 的记录，包括我们是怎么一步步走过来的，以及现状。</p>
+<a id="more"></a>
+<h2 id="开始（一些历史）"><a href="#开始（一些历史）" class="headerlink" title="开始（一些历史）"></a>开始（一些历史）</h2><p>大概2年前，我加入了 Obvious Corp. 参与 <em>medium.com</em> 的开发工作。</p>
+<p>当时，Medium 已经进行了一系列的 “re-styles” (re-style 就是设计师通过一些比之前漂亮的东西来摧毁你的生活，结果就是，你要重写成吨的 CSS/LESS/SASS/等等)。由于这些 re-styles，代码中出现了非常多令人讨厌的东西 — 非常倚重 LESS 的语言特性，页面驱动的语义，non-sprited/non-retina 的图片资源，等等。</p>
+<p>我翻看 Git 以及其他代码管理工具获取到了 Medium 2012 年的个人资料页面的实现，<em>不寒而栗</em>。下面列出了发现的问题，请注意那些非常不应该的模式：</p>
+<ul>
+<li>所有样式都嵌套在 <code>.profile-page</code> class 下，没有任何重用组件（另外 <em>几乎</em> 所有样式都使用了 <code>.profile</code> 前缀）</li>
+<li>超级通用变量名形如 <code>@link-color</code> 只在 <code>profile-page.less</code> 中被使用，并没有其他用处</li>
+<li>非常深的嵌套（<code>.profile-page .profile-posts .home-post-summary .home-post-collection-image img</code> 是一个真实存在的选择器 - 性能会非常差）</li>
+<li>没有 image spriting</li>
+<li>没有 z-index 标准，没有 font 标准，没有 color 标准，没有 ** 标准</li>
+</ul>
+<p><a href="https://gist.github.com/fat/a4af78882d0003d2345e" target="_blank" rel="external">Old medium profile page</a></p>
+<h2 id="Project-1：图片"><a href="#Project-1：图片" class="headerlink" title="Project 1：图片"></a>Project 1：图片</h2><p>当时，我参与了很多库 (Bootstrap, Ratchet, 等等)的开发工作，仔细处理每一个细节，希望能写出最好的 CSS 代码。</p>
+<p>Medium 的 CSS 代码当然非常不一样，不是简单的不同，而是屎一样的烂。我想解决这个问题。</p>
+<p>了解了所有需要处理的东西之后，我选择了 images 开始下手。我记得在了解到我们直到 2012 年没有做任何的 spriting 之后非常震惊。大约数百个图片资源，例如 placeholders, arrows, icons 等等，存在于 /img/ 文件夹中，简直是 icons 坟墓。</p>
+<p>为了解决这个问题，我做了两件事情。第一，我写了一个 CSS 工具脚本叫做 SUS（我们现在还在使用它，我将它开源在这里：<a href="https://github.com/medium/sus" target="_blank" rel="external">https://github.com/medium/sus</a>）,这个东西大部分是在 Guillermo Rauch 的帮助下用 IRC 编写完成，作用是从样式表中分离出图片，然后在另一个包含 data-uri 的文件中 lazy 加载。这只是一个小工具来帮助我们认识到怎么做。</p>
+<p>第二件事情，我和 Geoff Teehan 坐下来，创建了 Medium 的第一个 icon font。当时我们并不清楚具体要怎么做。经过几个漫长的夜晚，在 icomoon 和一个 Github 文章的帮助下，我们产出了一个对 Medium <em>非常</em> 好的东西。说它非常好，是因为我们可以删除 img 文件夹中 97% 的文件，每一个图标在我的 retina MacBook Pro 上都显示的非常好，并且只需要请求非常少的资源。</p>
+<h2 id="Project-2-标准"><a href="#Project-2-标准" class="headerlink" title="Project 2: 标准"></a>Project 2: 标准</h2><p>对我来说，另外一个大的工程是 z-index 标准。z-index 是个很容易就会失控到让人抓狂的东西。我不想让这种事情也出现在 Medium。 </p>
+<p>项目开始之前，很容易看到一个元素 <code>z-index:5;</code> 跟在一个 <code>z-index: 1000000;</code> 的节点后面，另外一个兄弟节点的样式是 <code>z-index: 1000001;</code>，还有一个 <code>z-index: 99999;</code>。</p>
+<p>在代码库这样的样式中比比皆是，因为并没有明确的方式指明应该怎么做。</p>
+<p>我开始了一项在整个代码库中人工审核 z-index 取值的艰巨任务，然后引入了一个可以被 z-indexing 组件使用（限制 1-10）的标准（z-index.less）。最终将所有的 z-index 定义都改用 z-index.less，这样就可以看出不同组件的相对位置了（实际上这是很方便的）。</p>
+<p>下面是当前 medium.com 使用的 z-index 文件。</p>
+<p><a href="https://gist.github.com/fat/1f6da6b3bd0311a1f8a0" target="_blank" rel="external">https://gist.github.com/fat/1f6da6b3bd0311a1f8a0</a></p>
+<p>当然，color 标准（黑色，灰色，logo 颜色），type 规范（字体大小，字重，字间距，行高）紧随 z-index 之后需要制定。</p>
+<p>另外，你可能注意到，变量命名遵循了一定的规范，并且采用了语义化命名，稍后会详细介绍。</p>
+<h2 id="Project-3-新的样式指引"><a href="#Project-3-新的样式指引" class="headerlink" title="Project 3: 新的样式指引"></a>Project 3: 新的样式指引</h2><p>制定了 Medium 规范后不久，我们开始了一场大的代码重构，代号 “Cocoon”。</p>
+<p>Cocoon 抛弃了一些 post 模版（Medium 本来包含图片模版，引用模版等，不仅仅包括单个文章的模版），并且使用 post 列表替代了 post “cards”。</p>
+<p>我们将这次重构作为重新思考 Medium 并创建一个新的样式指引的机会。</p>
+<p>最初由我，Dave Gamache，Dustin Senos，和 Chris Erwin 共同来完成了这项工作。</p>
+<p>我们花了一些时间来着实加强我们在 Medium 编写生成环境 CSS/LESS 的想法。主要的更新如下：</p>
+<ul>
+<li>限制 LESS 的使用，只允许使用 variables 和 mixins (不允许使用 nesting, guards, extend, 等等) ，虽然其它的语言特性 <em>可以</em> 非常强大，但是我们发现经验没那么丰富的 LESS 开发者很容易就会陷入麻烦。我们同时选择了纯 CSS 的视觉审美（也包括它提供的一致性）并且想要我们的代码库向着这样的方向发展。</li>
+<li>Classes 和 IDs 都是小写字母，中划线分割单词－这正是我们在 Bootstrap, Skeleton, Ratchet, 等等定义选择器的方式，我们认为我们在这里也可以这样做。另外一个原因是，这种定义方式遵循了 CSS 语言自身的定义方式，比如：border-radius-top-left。</li>
+<li>选择 components 而不是 page 层面的样式－我们希望我们的前端更像是一个库，根据这样的想法，我们将 profile.less 拆分成更加具体的文件，例如：button.less, dialog.less,tooltip.less 等。</li>
+</ul>
+<p>以下是完整的样式指引：<br><a href="https://gist.github.com/fat/b27700946c777adacdf4" target="_blank" rel="external">https://gist.github.com/fat/b27700946c777adacdf4</a></p>
+<p>这并不完美，但是它理清了一些基础的思路，然后带领我们向着感觉上正确的方向前进。</p>
+<p>不幸的是，在样式指引更新之后，人们依然非常纠结，什么时候需要定义组件，什么时候需要定义子组件等等。并且我们偶尔会碰到一些并不很具体的东西，例如 classname：.nav-on-light-background-button 或者 .button-primary-sidebar-over-blur.</p>
+<p>现在人们不再使用 page 级别的前缀来定义 class 了（这是很好的），但是它们开始使用中划线间隔拼接很多任意单词，组成 classname。进化的过程如下：.button → .button-primary → .button-primary-dark → .button-primary-dark-container → .button-primary-dark-container-label，真是让人不舒服。</p>
+<h2 id="Project-4-确定未来"><a href="#Project-4-确定未来" class="headerlink" title="Project 4: 确定未来"></a>Project 4: 确定未来</h2><p>当时，我开始以成为“世界上最好代码”为目标在 Medium 内部写了 <em>很多</em> 的 CSS 代码，但并不是非常清楚最好的 CSS 代码到底是什么样子，但至少明白了当时的方向并不成功。</p>
+<blockquote>
+<p>人们编写代码的过程中会感到很困惑，更糟糕的是，他们以为自己写的 CSS 非常好，实际上却不是这样。</p>
+</blockquote>
+<p>所以，我开始四处观察－－了解一些框架，尝试不同的工具和哲学，与朋友沟通，与朋友的朋友沟通，等等。很快，我找到三个为了让我们的 CSS 代码向着正确的方向前进需要解决的问题。</p>
+<ol>
+<li>引入新的 CSS variable, mixin, 和 classname 语义来避免过长的 classnames 以及增强可读性。</li>
+<li>从 LESS 转到 Rework 来获得更强的 mixin support 和更佳接近于原生 CSS 的语法。</li>
+<li>引入 CSS 性能（加载时间，fps，layout time 等）工具，使跟踪样式修改和回归更加简单。</li>
+</ol>
+<h2 id="Project-5-语义"><a href="#Project-5-语义" class="headerlink" title="Project 5: 语义"></a>Project 5: 语义</h2><p>我想要给我们的代码库一个更加严格的语义化标准。因为对于我们这种大小的团队，我觉得拥有一个可以依靠的规则是更简单的。并且我宁愿让事情变得更复杂一点，尽管这也意味着人们必须在创建新的 classes 的时候要更加留神。不过不惜一切代价，我希望能够避免过长的 classname，或者至少没那么容易出现。</p>
+<p>我开始就这个问题，与 Daryl Koopersmith 以及我的好朋友 Nicolas Gallagher 进行了长时间的讨论。</p>
+<p>Nicolas 跟我的关系很有趣，Nicolas 经常告诉我一些事情，我说他是错的，叫着他的法语名字（Va te faire foutre, enculé），在他身边得瑟几个星期，直到不可避免的意识到他是对的，然后把他的想法划归己有。</p>
+<p>这一次也是一样，经过几个漫长的夜晚，我终于完成了一个与 Nicolas 的 SUITCSS 很像的语义化样式。很像，但是又那么 ~一丢丢~ 方面更好。</p>
+<p>于是，我开始抄袭 Nicolas 的东西，我扔掉了就的样式指引，然后复制粘贴了他的很大一部分，左改改，右改改。</p>
+<p>最终，我产出了我们当前使用的最新的样式指引，你可以在下面完整的阅读它，主要的更新是：</p>
+<ul>
+<li><strong>.js-</strong> 开头的 class names 代表依赖 javascript 选择器的元素</li>
+<li><strong>.u-</strong> 开头的 class name 单独目的的工具类，例如 .u-underline, .u-capitalize, 等等</li>
+<li>引入有意义的连字符以及驼峰－－区分 component, descendant components, 和 modifiers 的间隔符。</li>
+<li><strong>.is-</strong> 开头的 classes 表示有状态的 classes (经常被 js 切换) 例如 .is-disabled</li>
+<li>新的 CSS 变量语义： [property]-[value]—[component]</li>
+<li>mixing 限制为只用在 polyfills 并且以 <strong>.m-</strong> 开头</li>
+</ul>
+<p><a href="https://gist.github.com/fat/a47b882eb5f84293c4ed" target="_blank" rel="external">https://gist.github.com/fat/a47b882eb5f84293c4ed</a></p>
+<p>复制粘贴样式指引是一回事，而重写你的 CSS 又是另一回事。</p>
+<p>庆幸的是我可以说服公司这个项目的重要性，然后他们给了 2½ 周的时间让我们重写 Medium.com 的所有 CSS－－如果你一直在关心我们的话，这只是我们<a href="https://medium.com/designing-medium/crafting-link-underlines-on-medium-7c03a9274f9" target="_blank" rel="external">修复 CSS underline 问题</a>所花费时间的很小一部分。</p>
+<p>也就是说，这次重写不只是宣泄，我们清理了一些比没用的样式，收集并整理了整个网站的实现，将文件拆解成小的子模块。让我惊喜的是，只造成了五次以内的回滚。</p>
+<p>当然，重构 CSS 意味着重构我们的模版－－增加更多的封装和严格的语义化。现在我们不再有数以百计使用随机 avatar classes 的一次性 <img> 标签，我们使用一个单独的集中式 avatar 模版，模版接受布尔选项，来触发不同的 modifiers 比如大小，样式等等。这让更新样式变的简单，而已实现细节时引入更少的 Bug。</p>
+<h2 id="Project-X-未来？"><a href="#Project-X-未来？" class="headerlink" title="Project X: 未来？"></a>Project X: 未来？</h2><p>毫无疑问，我们比两年之前变的更好了。在 Medium 写 CSS 变的非常愉快，不同经验的开发者们也在促进更加伟大的东西。</p>
+<p>大家都说，未来的 CSS 项目必须是关注性能。随着我们不断的完善我们的故事，然后推向下一个阶段，你可以想象怎样精确可靠的测量 layout 和 渲染性能是非常重要的。</p>
+<p>所以，还要更多的事情要做，但是我现在感觉我们已经非常好了，比我平时想的都要好。</p>
+<p>为你完成了这个冗长又无聊的 post 干杯。</p>
+<p>感谢 Katie, Dave, Mark, Koop, Kristofer, Nicolas 以及其它帮助我的人❤。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Medium/" rel="tag"># Medium</a>
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/11/11/2012-11-11-application-cache-is-a-douchebag/" rel="next" title="Application Cache 就是个坑">
+                <i class="fa fa-chevron-left"></i> Application Cache 就是个坑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/30/medium-style-guide/" rel="prev" title="Medium LESS 编码指引">
+                Medium LESS 编码指引 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="ZoomZhao" />
+          <p class="site-author-name" itemprop="name">ZoomZhao</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Medium-的-CSS-真他-的好"><span class="nav-number">1.</span> <span class="nav-text">Medium 的 CSS 真他*的好</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始（一些历史）"><span class="nav-number">1.1.</span> <span class="nav-text">开始（一些历史）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-1：图片"><span class="nav-number">1.2.</span> <span class="nav-text">Project 1：图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-2-标准"><span class="nav-number">1.3.</span> <span class="nav-text">Project 2: 标准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-3-新的样式指引"><span class="nav-number">1.4.</span> <span class="nav-text">Project 3: 新的样式指引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-4-确定未来"><span class="nav-number">1.5.</span> <span class="nav-text">Project 4: 确定未来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-5-语义"><span class="nav-number">1.6.</span> <span class="nav-text">Project 5: 语义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-X-未来？"><span class="nav-number">1.7.</span> <span class="nav-text">Project X: 未来？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZoomZhao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

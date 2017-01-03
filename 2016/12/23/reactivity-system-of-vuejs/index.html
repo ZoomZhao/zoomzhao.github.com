@@ -1,0 +1,784 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Reactivity (Vue 中文文档中翻译为响应式) 是 Vue 的非常关键的一部分。通过 Model 与视图的双向绑定，让使用者可以简单的更新页面状态，不再需要直接操作 DOM 进行处理。
+除了 Reactivity，Vue 中还有很多其他的部分，包括：模版解析、VDOM、组件等。为了更好的学习 Vue 中 Reactivity 的实现，将其中 Reactivity 相关部分拿出来成为了单独">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vuejs 中的 Reactivity 的实现">
+<meta property="og:url" content="http://zoomzhao.github.com/2016/12/23/reactivity-system-of-vuejs/index.html">
+<meta property="og:site_name" content="Zoom's Blog">
+<meta property="og:description" content="Reactivity (Vue 中文文档中翻译为响应式) 是 Vue 的非常关键的一部分。通过 Model 与视图的双向绑定，让使用者可以简单的更新页面状态，不再需要直接操作 DOM 进行处理。
+除了 Reactivity，Vue 中还有很多其他的部分，包括：模版解析、VDOM、组件等。为了更好的学习 Vue 中 Reactivity 的实现，将其中 Reactivity 相关部分拿出来成为了单独">
+<meta property="og:image" content="https://cn.vuejs.org/images/data.png">
+<meta property="og:updated_time" content="2016-12-27T08:14:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vuejs 中的 Reactivity 的实现">
+<meta name="twitter:description" content="Reactivity (Vue 中文文档中翻译为响应式) 是 Vue 的非常关键的一部分。通过 Model 与视图的双向绑定，让使用者可以简单的更新页面状态，不再需要直接操作 DOM 进行处理。
+除了 Reactivity，Vue 中还有很多其他的部分，包括：模版解析、VDOM、组件等。为了更好的学习 Vue 中 Reactivity 的实现，将其中 Reactivity 相关部分拿出来成为了单独">
+<meta name="twitter:image" content="https://cn.vuejs.org/images/data.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zoomzhao.github.com/2016/12/23/reactivity-system-of-vuejs/"/>
+
+
+
+
+
+  <title> Vuejs 中的 Reactivity 的实现 | Zoom's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Zoom's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zoomzhao.github.com/2016/12/23/reactivity-system-of-vuejs/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="ZoomZhao">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Zoom's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Zoom's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Vuejs 中的 Reactivity 的实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-23T00:00:00+08:00">
+                2016-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Reactivity (Vue 中文文档中翻译为响应式) 是 Vue 的非常关键的一部分。通过 Model 与视图的双向绑定，让使用者可以简单的更新页面状态，不再需要直接操作 DOM 进行处理。</p>
+<p>除了 Reactivity，Vue 中还有很多其他的部分，包括：模版解析、VDOM、组件等。<br>为了更好的学习 Vue 中 Reactivity 的实现，将其中 Reactivity 相关部分拿出来成为了单独的部分。这样更容易单独的看这一部分的实现。<br>相关的代码在 <a href="https://github.com/ZoomZhao/vue-observer" target="_blank" rel="external">vue-observer</a></p>
+<a id="more"></a>
+<p>运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install;</div><div class="line">npm run dev;</div></pre></td></tr></table></figure>
+<p>通过访问 <code>example/base</code> 下的 <code>index.html</code>，并修改源码，了解其中的实现。</p>
+<p>Reactivity 监控变化的处理流程参考 Vue 文档中给出的图片：</p>
+<p><img src="https://cn.vuejs.org/images/data.png" alt="vue-reactivity"></p>
+<p>下面从文件介绍以及处理流程两个方面，介绍 Vue 中 Reactivity 的具体实现。</p>
+<h2 id="文件功能介绍"><a href="#文件功能介绍" class="headerlink" title="文件功能介绍"></a>文件功能介绍</h2><h3 id="instance"><a href="#instance" class="headerlink" title="instance"></a>instance</h3><p>instance 中相关的文件，主要是两个：</p>
+<ol>
+<li><p><code>state.js</code></p>
+<p>Vue 中初始化传入的 <code>props</code>，<code>data</code>，<code>compute</code>，<code>watch</code> 的逻辑</p>
+</li>
+<li><p><code>render.js</code></p>
+<p> vue-observer 示例中将 Vue 的 <code>render</code> 方法作了精简，并将 <code>render</code> 方法的调用（其实是 <code>new Watcher()</code>）从 lifecycle 移到了 render.js 文件中。</p>
+</li>
+</ol>
+<h3 id="observer"><a href="#observer" class="headerlink" title="observer"></a>observer</h3><p>vue-observer 的这部分代码，基本完全与 Vue 中的代码一致，是 Vue 中 Reactivity 实现的核心代码。主要包含以下几个文件</p>
+<ol>
+<li><p><code>inde.xjs</code></p>
+<p> 包含类 <code>Observer</code>，主要是为各个需要观察的目标埋点 （<code>new Dep()</code>）</p>
+</li>
+<li><p><code>dep.js</code></p>
+<p> 包含类 <code>Dep</code>  （观察点 类）</p>
+</li>
+<li><p><code>watcher.js</code></p>
+<p> 包含类 <code>Watcher</code>  （观察者 类）</p>
+</li>
+<li><p><code>scheduler.js</code></p>
+<p> 观察者的调度逻辑，主要负责处理，多个 Watcher 需要被调用的情况。防止多次被调用以及在特定情况下按顺序调用。</p>
+</li>
+<li><p><code>array.js</code></p>
+<p> 辅助方法，用于重写 Array 的一些方法，使 Array 的变化可以被观察。</p>
+</li>
+</ol>
+<p>其中的两个重要的类，属性方法如下：</p>
+<h4 id="Dep-类"><a href="#Dep-类" class="headerlink" title="Dep 类"></a>Dep 类</h4><p><strong>属性</strong></p>
+<ul>
+<li><code>target</code>  静态属性，全局唯一，标识当前正在处理的 Watcher</li>
+<li><code>id</code>  ID</li>
+<li><code>subs</code>  Watcher 的列表</li>
+</ul>
+<p><strong>方法</strong></p>
+<ul>
+<li><code>addSub</code>  添加 Watcher</li>
+<li><code>removeSub</code>  移除 Watcher</li>
+<li><code>depend</code>  为自己添加当前 target Watcher，并更新 Watcher 的观察列表</li>
+<li><code>notify</code>  通知所有 Watcher 更新</li>
+</ul>
+<h4 id="Watcher"><a href="#Watcher" class="headerlink" title="Watcher"></a>Watcher</h4><p>根据传入的 expression，得到 value，传给 cb 进行处理。</p>
+<p><strong>属性</strong></p>
+<ul>
+<li><code>deep</code> 用于决定是否完整的轮训，来保证每一个属性都被重新计算依赖</li>
+<li><code>user</code> 是否是用户创建的，是的话会尝试捕获 cb 调用时产生的异常，并提醒</li>
+<li><code>lazy</code> 是否 new 之后不立即执行</li>
+<li><code>sync</code> 是否需要在每次需要 update 的时候立即执行 （不设置的话会交由 scheduler 处理）</li>
+<li><code>expression</code> 传入的方法或表达式</li>
+<li><code>cb</code> 执行之后的回调函数</li>
+<li><code>id</code> </li>
+<li><code>active</code> 是否当前激活状态</li>
+<li><code>dirty</code> 是否是脏数据</li>
+<li><code>deps</code> 与下面的三个一起，用来做 观察目标 （Dep）的动态更新</li>
+<li><code>newDeps</code></li>
+<li><code>depIds</code></li>
+<li><code>newDepIds</code></li>
+<li><code>getter</code> 从 expression 来的 getter 方法</li>
+<li><code>value</code> 当前的取值</li>
+</ul>
+<p><strong>方法</strong></p>
+<ul>
+<li><code>get</code> 默认初始化之后调用，调用传入的 expression，收集依赖，并调用 <code>cleanupDeps</code> 更新依赖关系</li>
+<li><code>addDep</code> 把自身添加到制定 Dep 的观察列表中，另外如果依赖有变化则记录</li>
+<li><code>cleanupDeps</code> 更新依赖关系</li>
+<li><code>update</code> 更新</li>
+<li><code>run</code> 具体的执行方法，负责调用 <code>get</code> 然后根据情况决定是否调用 <code>cb</code></li>
+<li><code>evaluate</code> 只是调用 <code>get</code>，用于清除 <code>dirty</code> 状态</li>
+<li><code>depend</code> 把收集的 deps 统一进行处理，跟 <code>evaluate</code> 一样，都是为 <code>lazy</code> 的 Watcher 服务的</li>
+<li><code>teardown</code> 销毁</li>
+</ul>
+<h3 id="util-share-一些工具代码"><a href="#util-share-一些工具代码" class="headerlink" title="util + share 一些工具代码"></a>util + share 一些工具代码</h3><p>一些工具方法</p>
+<h2 id="Reactivity-相关处理流程"><a href="#Reactivity-相关处理流程" class="headerlink" title="Reactivity 相关处理流程"></a>Reactivity 相关处理流程</h2><p>大概了解了各个文件的功能之后，我们从处理流程的角度，了解下 Vue 中 Reactivity 的具体处理过程。</p>
+<p>Reactivity 的处理包含三个部分：</p>
+<ul>
+<li>初始化观察目标，负责埋点</li>
+<li>初始化 Watcher 并进行依赖收集，等待变更出现</li>
+<li>出现变更，进行更新</li>
+</ul>
+<h3 id="初始化观察目标"><a href="#初始化观察目标" class="headerlink" title="初始化观察目标"></a>初始化观察目标</h3><p>初始化的时候（在 Vue 中 <code>new Vue</code> 或者创建 <code>Component</code>），根据传入的 <code>$options</code> 进行初始化处理。</p>
+<ul>
+<li>初始化 <code>$options.props</code></li>
+<li><p>初始化 <code>$options.data</code></p>
+<p>通过调用 <code>observer/index.js</code> 文件中的 <code>observer</code> 方法，进行埋点。</p>
+<ul>
+<li><p>每个对象（Object 和 Array）都会被分配个观察者 <code>Observer</code></p>
+<p>主要是用于对象变更的观察，例如 Array 的 push 操作；另外一个使用的地方是 Vue.set ，可以在初始化之后依然提供观察的能力。<br>这里有一个很厉害的细节，<code>Observer</code> 对象被放到了 Object 的 <code>__ob__</code> 属性中，既可以在拿到对象的时候都可以回去到对应的 <code>Observer</code>，还起到缓存的作用，防止多次观察同一对象，一举两得。</p>
+</li>
+<li><p>每个属性也会被分配个观察者</p>
+</li>
+</ul>
+<p>这里的观察者采用了闭包的方式，通过 Object.defineProperty 来处理 getter 和 setter。在 get 的时候，处理观察关系，将当前 Watcher 加入到属性的观察者列表中。set 的时候，通过 dep.notify() 触发观察者进行更新。</p>
+<p>这里也有个 childOb 的概念，如果当前的属性存在 childOb，那么 childOb 也要同时被当前 Watcher 观察。</p>
+</li>
+</ul>
+<h3 id="初始化-Watcher-并进行依赖收集，等待变更出现"><a href="#初始化-Watcher-并进行依赖收集，等待变更出现" class="headerlink" title="初始化 Watcher 并进行依赖收集，等待变更出现"></a>初始化 Watcher 并进行依赖收集，等待变更出现</h3><p>初始化 Watcher 分为三个部分：</p>
+<ul>
+<li><p>初始化 $options.computed 的 Watcher</p>
+<p>Vue 中可以通过给 <code>$options</code> 传入 computed 对象来处理一些比较复杂的显示逻辑。这个时候就要根据所依赖的属性，进行观察和重新计算。computed 对应的 Watcher 通过 makeComputedGetter 方法创建，他的特点是，创建的为 Lazy Watcher，new 之后不会立即调用，在 computed 的属性被 get 的时候才需要重新计算。</p>
+<p>对于这类 Watcher，处理的流程为</p>
+<ol>
+<li>初始化的时候，只设置 dirty 为 true，不直接执行传入的 expression。</li>
+<li>每次 Dep 通过 update 的时候只设置 Watcher 的 dirty 为 true，标识需要重新计算。</li>
+<li>在需要获取最新值得时候（这里就是 computed 属性被 get 的时候）调用 watcher.evaluate() 方法，计算 watcher 的最新值，并且手动调用 watcher.depend() 方法来重新计算依赖。</li>
+</ol>
+</li>
+<li><p>初始化 $options.watch 的 Watcher</p>
+<p><code>$options.watch</code> 提供观察 <code>data</code> 的功能，在 <code>data</code> 被修改之后，触发提供的回调函数。</p>
+<p>具体的实现过程中，使用了 Vue 暴露出的全局 API：<code>Vue.$watch</code>，创建一个普通的 watcher，在指定的 expression 的发生改变的时候触发 cb。</p>
+</li>
+<li><p>初始化 render Watcher</p>
+<p>在 Vue 的处理流程中，会把 temple 编译为 render 函数（具体的实现会更加复杂），在 Vue Component 初始化完成的时候，会创建一个 Watcher(render, patchVDom)，根据传入的 render 函数创建依赖关系，如果发现变化，则 PatchVDom， 实现 View 的更新。</p>
+</li>
+</ul>
+<h3 id="出现变更，进行更新"><a href="#出现变更，进行更新" class="headerlink" title="出现变更，进行更新"></a>出现变更，进行更新</h3><p>经过 Watcher 的初始化，Vue 中的 Watcher，分为三类（不包括用户调用 <code>Vue.$watch</code> 传入 sync 参数的情况）</p>
+<ul>
+<li>Computed Watcher（lazy Watcher），update 的时候只标记 dirty 状态，不会进入 queue（后面具体讲队列），属性被 get 的时候直接调用 <code>watcher.evaluate()</code> 进行取值。</li>
+<li>普通 Watcher，包含用户通过 <code>$options.watch</code> 或 <code>Vue.$watch</code> 生成的 watch，在 update 的时候会进入 queue</li>
+<li>Component Watcher，render 方法作为 expOrFn 的 watcher，实现 Model -&gt; DOM 的关键 Watcher，在 update 的时候会进入 queue</li>
+</ul>
+<p>在 Model 被改变的时候，对应的 dep 被触发 notify 方法。dep 会调用所有 watcher 的 update 方法。</p>
+<ul>
+<li>Computed Watcher 的处理逻辑在 <em>初始化 $options.computed 的 Watcher</em> 部分已经做了描述</li>
+<li>其他的 watcher （不包括设置 sync 为 true，下同）都会交由 queueWatcher 进行处理</li>
+</ul>
+<p>想过逻辑存在于文件 <code>observer/scheduler.js</code></p>
+<p>queueWatcher 的作用主要有以下几点：</p>
+<ol>
+<li>同一个 watcher 只会被添加到列表中一次，防止被多次调用</li>
+<li>如果正在执行队列，则会判断当前插入的 watcher id，如果已经过了，则立即执行，否则插入到合适位置</li>
+<li>当前处理的所有 watcher 被插入到队列之后进行执行</li>
+</ol>
+<p>执行队列的时候，会先对需要执行的 watcher 进行排序处理：</p>
+<ol>
+<li>大的方面，从父组件到子组件的方向执行，因为父组件总是先被创建的。</li>
+<li>用户定义的 watcher 先于 render watcher 被处理（用户定义的 watcher 可能会影响 Model 的取值）</li>
+<li>如果子组件被父组件干掉了，那么它会被跳过。</li>
+</ol>
+<p>这个顺序也是 watcher 被创建的顺序，这样的话，按照 watcher 的 id 从小到大进行排列就可以了。</p>
+<p>然后执行 排重 + 排序 之后的 watcher 队列，这样就保证了，每次数据变更，只会按顺序处理一次需要更新的 watcher。</p>
+<hr>
+<p>这就是 Vue 中的 Reactivity 的具体实现。</p>
+<p>可以看到，这部分的整体的实现真的是非常的好。</p>
+<p>其中 Dep 和 Watcher 这两个类的设计非常优秀。在 Watcher 中存储了 Dep 的列表，也在 Dep 中存储了 Watcher 的列表。通过这样的设计，既可以在 Watcher 实例中，初始化及更新依赖关系（通过 Deps 和 newDeps），也可以在 dep 中直接通知所有的 watcher 进行更新。</p>
+<p>scheduler 的引入很好的解决了什么时候调用 watcher 的问题，最大化的减少了 DOM 操作，再加上 VDOM，就完成了 Model 到 View 的高性能的映射。</p>
+<p>​    </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/30/medium-style-guide/" rel="next" title="Medium LESS 编码指引">
+                <i class="fa fa-chevron-left"></i> Medium LESS 编码指引
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="ZoomZhao" />
+          <p class="site-author-name" itemprop="name">ZoomZhao</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件功能介绍"><span class="nav-number">1.</span> <span class="nav-text">文件功能介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#instance"><span class="nav-number">1.1.</span> <span class="nav-text">instance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#observer"><span class="nav-number">1.2.</span> <span class="nav-text">observer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dep-类"><span class="nav-number">1.2.1.</span> <span class="nav-text">Dep 类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Watcher"><span class="nav-number">1.2.2.</span> <span class="nav-text">Watcher</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#util-share-一些工具代码"><span class="nav-number">1.3.</span> <span class="nav-text">util + share 一些工具代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reactivity-相关处理流程"><span class="nav-number">2.</span> <span class="nav-text">Reactivity 相关处理流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化观察目标"><span class="nav-number">2.1.</span> <span class="nav-text">初始化观察目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化-Watcher-并进行依赖收集，等待变更出现"><span class="nav-number">2.2.</span> <span class="nav-text">初始化 Watcher 并进行依赖收集，等待变更出现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出现变更，进行更新"><span class="nav-number">2.3.</span> <span class="nav-text">出现变更，进行更新</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZoomZhao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

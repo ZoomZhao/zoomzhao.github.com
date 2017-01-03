@@ -1,0 +1,680 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="原文地址：Understanding CSS’s vertical-align Property by Louis Lazaris
+你看，那个前端开发又在哭诉：“ X，Vertical-align 又不起作用了！”
+vertical-align 属性看上去很简单，但是确实会给 CSS 新手带来很大的麻烦，即便是 CSS 的老手在这个点上也经常需要停下来把问题搞搞清楚。
+接下来，我会尝试用一个容易理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解 CSS 的 vertical-align 属性">
+<meta property="og:url" content="http://zoomzhao.github.com/2012/03/18/css-vertical-align/index.html">
+<meta property="og:site_name" content="Zoom's Blog">
+<meta property="og:description" content="原文地址：Understanding CSS’s vertical-align Property by Louis Lazaris
+你看，那个前端开发又在哭诉：“ X，Vertical-align 又不起作用了！”
+vertical-align 属性看上去很简单，但是确实会给 CSS 新手带来很大的麻烦，即便是 CSS 的老手在这个点上也经常需要停下来把问题搞搞清楚。
+接下来，我会尝试用一个容易理">
+<meta property="og:image" content="http://cdn.impressivewebs.com/2011-12/vertical-align-pic.jpg">
+<meta property="og:updated_time" content="2016-12-27T08:13:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解 CSS 的 vertical-align 属性">
+<meta name="twitter:description" content="原文地址：Understanding CSS’s vertical-align Property by Louis Lazaris
+你看，那个前端开发又在哭诉：“ X，Vertical-align 又不起作用了！”
+vertical-align 属性看上去很简单，但是确实会给 CSS 新手带来很大的麻烦，即便是 CSS 的老手在这个点上也经常需要停下来把问题搞搞清楚。
+接下来，我会尝试用一个容易理">
+<meta name="twitter:image" content="http://cdn.impressivewebs.com/2011-12/vertical-align-pic.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zoomzhao.github.com/2012/03/18/css-vertical-align/"/>
+
+
+
+
+
+  <title> 理解 CSS 的 vertical-align 属性 | Zoom's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Zoom's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zoomzhao.github.com/2012/03/18/css-vertical-align/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="ZoomZhao">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Zoom's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Zoom's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                理解 CSS 的 vertical-align 属性
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2012-03-18T00:00:00+08:00">
+                2012-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文地址：<a href="http://www.impressivewebs.com/css-vertical-align/" target="_blank" rel="external">Understanding CSS’s vertical-align Property</a> by Louis Lazaris</p>
+<p>你看，那个前端开发又在哭诉：“ X，Vertical-align 又不起作用了！”</p>
+<p><code>vertical-align</code> 属性看上去很简单，但是确实会给 CSS 新手带来很大的麻烦，即便是 CSS 的老手在这个点上也经常需要停下来把问题搞搞清楚。</p>
+<p>接下来，我会尝试用一个容易理解的方式来介绍它。</p>
+<h2 id="什么是它不会做的"><a href="#什么是它不会做的" class="headerlink" title="什么是它不会做的"></a>什么是它不会做的</h2><p>对于 <strong>vertical-align</strong> 有一个很常见的误解是，当它作用于一个元素的时候，它会改变这个元素内部所有内容到指定的位置。例如：当你在一个元素上使用 <strong>vertical-align: top</strong>, 这个元素里面所有内容被期望置顶显示。</p>
+<a id="more"></a>
+<p>这让我想起使用 Table 时的情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td valign=&quot;top&quot;&gt;</div><div class="line">  Whatever...</div><div class="line">&lt;/td&gt;</div></pre></td></tr></table></figure>
+<p>在 Table 中，“valign” 属性（在 HTML5 中被废弃）会让表格中的所有的元素置顶显示。所以，很自然的，当 CSS 开发人员使用 <strong>vertical-align</strong> 时会期望达到同样的效果，可惜的是，它只会在当前元素上起作用。</p>
+<h2 id="它会做些什么"><a href="#它会做些什么" class="headerlink" title="它会做些什么"></a>它会做些什么</h2><p><strong>vertical-align</strong> 属性以下三种情况下发挥作用：</p>
+<ol>
+<li>它只在 inline 或者 inline-block 元素上有效。</li>
+<li>它只会影响元素自身的对齐方式，而不在它的内容上生效（表格单元格除外）。</li>
+<li>当它被应用于表格的单元格时，影响表格内容的对齐方式，而不是单元格自身。</li>
+</ol>
+<p>所以，下面的代码不会产生任何的影响:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">div &#123;</div><div class="line">  vertical-align: middle; /* this won&apos;t do anything */</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为什么呢？因为 <code>&lt;div&gt;</code> 是 <code>block-level</code> 元素，而不是 <code>inline</code>。当然如果你改变 <code>div</code> 到 <code>inline</code> 或者 <code>inline-block</code>, <strong>vertical-align</strong> 就会生效了。</p>
+<p>也就是说，如果正确使用（在 <code>inline</code> 或者 <code>inline-block</code> 元素上使用），<strong>vertical-align</strong> 属性会使当前元素根据其余的 <code>inline</code> 元素进行垂直定位。</p>
+<p>到底元素在垂直方向上处于什么样的位置取决于在同一行的其余元素，或 <code>line-height</code> 属性。</p>
+<h2 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h2><p>下面是一个图示以及部分的解释文本，来协助掌握，在 <code>inline</code> 元素上使用垂直定位时到底发生了什么：</p>
+<p><img src="http://cdn.impressivewebs.com/2011-12/vertical-align-pic.jpg" alt="vertical-align"></p>
+<p>这里是一个 JSBin ，包含一些 <code>inline</code> 元素，其中的一个被置顶显示：<br><a href="http://jsbin.com/isuvob/edit#html,live" title="Vertical Align" target="_blank" rel="external">JSBin</a></p>
+<h2 id="关键字取值"><a href="#关键字取值" class="headerlink" title="关键字取值"></a>关键字取值</h2><p><strong>vertical-align</strong> 属性可以被设置为以下关键字：</p>
+<ul>
+<li>baseline （默认值）</li>
+<li>bottom</li>
+<li>middle</li>
+<li>sub</li>
+<li>super</li>
+<li>text-bottom</li>
+<li>text-top</li>
+<li>top</li>
+</ul>
+<p>你可能只会使用其中的小部分，但是了解所有可选项总是好的。比如说在 <a href="http://jsbin.com/isuvob/edit#html,live" title="Demo" target="_blank" rel="external">Demo</a> 中，因为输入框的 <code>vertical-align</code> 属性被设置为 <code>top</code>，它根据最高的元素（较大的图片）置顶显示。</p>
+<p>但是如果你不想根据图片或者其余的块状的元素进行定位，你可以选择 <code>text-top</code> 或者 <code>text-bottom</code>， 这样元素就会根据同一行的文本进行定位。</p>
+<h2 id="关于关键字-Middle"><a href="#关于关键字-Middle" class="headerlink" title="关于关键字 Middle"></a>关于关键字 Middle</h2><p>悲剧的是：<strong>vertical-align: middle</strong> 并不会像大家都期待的那样按照行内最高的元素进行居中定位，如果赋值为 <strong>middle</strong> 会使当前元素根据假象的小写 “x” （通常被称作 “x-height”） 进行居中定位。所以，根据它的实际作用， <strong>middle</strong> 改为 text-middle 会更合适一点。</p>
+<p>在 <a href="http://jsbin.com/apiqog/edit#html,live" target="_blank" rel="external">Demo</a> 中，我把字体大小调大，从而让 “x-height” 变得很大，所以一般来说，不应该大量使用 <strong>middle</strong>。</p>
+<h2 id="非关键字取值"><a href="#非关键字取值" class="headerlink" title="非关键字取值"></a>非关键字取值</h2><p> <strong>vertical-align</strong> 还可以取值为 <code>长度</code> 以及 <code>百分比</code>。以下的例子中的使用都是合法的：</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">        vertical-align: 100px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">span &#123;</div><div class="line">        vertical-align: 50%;</div><div class="line">&#125;</div><div class="line"></div><div class="line">img &#123;</div><div class="line">        vertical-align: -300px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>虽然你可以阅读 <a href="http://www.w3.org/TR/CSS21/visudet.html#propdef-vertical-align" title="W3C关于 **vertical-align** 取值的解释" target="_blank" rel="external">W3C关于 <strong>vertical-align</strong> 取值的解释</a>，但是我觉得，自己尝试调整取值并查看其中的差异会更加有用。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一句话概括怎么来使用这个一直被误解的属性：</p>
+<p><strong>vertical-align</strong> 属性只在 <code>inline</code>、<code>inline-block</code> 元素以及单元格内容有效，对于单元格自身无效，它只会影响当前元素的对齐，而不是它的内容。</p>
+<p><strong>PS：</strong> 应该说明是，有些时候当我说 <code>inline</code> 元素的时候，<code>inline-block</code> 元素是包含在内的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/11/08/2012-11-08-using-the-application-cache/" rel="prev" title="使用 Application Cache">
+                使用 Application Cache <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="ZoomZhao" />
+          <p class="site-author-name" itemprop="name">ZoomZhao</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是它不会做的"><span class="nav-number">1.</span> <span class="nav-text">什么是它不会做的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#它会做些什么"><span class="nav-number">2.</span> <span class="nav-text">它会做些什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图示"><span class="nav-number">3.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键字取值"><span class="nav-number">4.</span> <span class="nav-text">关键字取值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于关键字-Middle"><span class="nav-number">5.</span> <span class="nav-text">关于关键字 Middle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非关键字取值"><span class="nav-number">6.</span> <span class="nav-text">非关键字取值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZoomZhao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

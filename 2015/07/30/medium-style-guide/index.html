@@ -1,0 +1,800 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Medium,CSS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Medium LESS 编码指引Medium 使用 LESS 的一个严格子集来进行 CSS 预处理。严格子集只包括变量和 mixin，不包含任何其它内容（嵌套等）。
+Medium 的命名约定改编自 SUIT CSS 框架。具体的说，它依赖于 结构化的类名 和 有意义的分隔符 （分隔符不仅仅用来分隔单词）来约定命名。这样的设计可以帮助拟补当前给 DOM 设置 CSS 的不足（例如，缺少样式封装），同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Medium LESS 编码指引">
+<meta property="og:url" content="http://zoomzhao.github.com/2015/07/30/medium-style-guide/index.html">
+<meta property="og:site_name" content="Zoom's Blog">
+<meta property="og:description" content="Medium LESS 编码指引Medium 使用 LESS 的一个严格子集来进行 CSS 预处理。严格子集只包括变量和 mixin，不包含任何其它内容（嵌套等）。
+Medium 的命名约定改编自 SUIT CSS 框架。具体的说，它依赖于 结构化的类名 和 有意义的分隔符 （分隔符不仅仅用来分隔单词）来约定命名。这样的设计可以帮助拟补当前给 DOM 设置 CSS 的不足（例如，缺少样式封装），同">
+<meta property="og:updated_time" content="2016-12-27T08:11:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Medium LESS 编码指引">
+<meta name="twitter:description" content="Medium LESS 编码指引Medium 使用 LESS 的一个严格子集来进行 CSS 预处理。严格子集只包括变量和 mixin，不包含任何其它内容（嵌套等）。
+Medium 的命名约定改编自 SUIT CSS 框架。具体的说，它依赖于 结构化的类名 和 有意义的分隔符 （分隔符不仅仅用来分隔单词）来约定命名。这样的设计可以帮助拟补当前给 DOM 设置 CSS 的不足（例如，缺少样式封装），同">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zoomzhao.github.com/2015/07/30/medium-style-guide/"/>
+
+
+
+
+
+  <title> Medium LESS 编码指引 | Zoom's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Zoom's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zoomzhao.github.com/2015/07/30/medium-style-guide/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="ZoomZhao">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Zoom's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Zoom's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Medium LESS 编码指引
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-07-30T16:27:49+08:00">
+                2015-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/front-end/" itemprop="url" rel="index">
+                    <span itemprop="name">front-end</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Medium-LESS-编码指引"><a href="#Medium-LESS-编码指引" class="headerlink" title="Medium LESS 编码指引"></a>Medium LESS 编码指引</h1><p>Medium 使用 <a href="http://lesscss.org/" target="_blank" rel="external">LESS</a> 的一个严格子集来进行 CSS 预处理。严格子集只包括变量和 mixin，不包含任何其它内容（嵌套等）。</p>
+<p>Medium 的命名约定改编自 SUIT CSS 框架。具体的说，它依赖于 <em>结构化的类名</em> 和 <em>有意义的分隔符</em> （分隔符不仅仅用来分隔单词）来约定命名。这样的设计可以帮助拟补当前给 DOM 设置 CSS 的不足（例如，缺少样式封装），同时可以改善不同 class 之间的联系。</p>
+<a id="more"></a>
+<p><strong>Table of contents</strong></p>
+<ul>
+<li><a href="#javascript">JavaScript</a></li>
+<li><a href="#utilities">Utilities</a><ul>
+<li><a href="#u-utilityName">u-utilityName</a></li>
+</ul>
+</li>
+<li><a href="#components">Components</a><ul>
+<li><a href="#componentName">componentName</a></li>
+<li><a href="#componentName--modifierName">componentName–modifierName</a></li>
+<li><a href="#componentName-descendantName">componentName-descendantName</a></li>
+<li><a href="#is-stateOfComponent">componentName.is-stateOfComponent</a></li>
+</ul>
+</li>
+<li><a href="#variables">Variables</a><ul>
+<li><a href="#colors">colors</a></li>
+<li><a href="#zindex">z-index</a></li>
+<li><a href="#fontweight">font-weight</a></li>
+<li><a href="#lineheight">line-height</a></li>
+<li><a href="#letterspacing">letter-spacing</a></li>
+</ul>
+</li>
+<li><a href="#polyfills">Polyfills</a></li>
+<li><a href="#formatting">Formatting</a><ul>
+<li><a href="#spacing">Spacing</a></li>
+<li><a href="#quotes">Quotes</a></li>
+</ul>
+</li>
+<li><a href="#performance">Performance</a><ul>
+<li><a href="#specificity">Specificity</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="javascript"></a></p>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><p>语法: <code>js-&lt;targetName&gt;</code></p>
+<p>JavaScript 特有的 classes 可以减少改变组件的结构或者样式时不经意间影响关联的 JavaScript 行为的风险。它只是个工具，并不是所有情况下都必要。如果你需要创建一个并不会对它添加样式，而只是 JavaScript 中的一个选择器的 class，你就应该添加 <code>js-</code> 前缀。实际使用，会像下面这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/login"</span> <span class="attr">class</span>=<span class="string">"ban ban-primary js-login"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>再次强调，JavaScript 特有的 classes 在任何情况下，都不应该被设置样式。</strong></p>
+<p><a name="utilities"></a></p>
+<h2 id="Utilities"><a href="#Utilities" class="headerlink" title="Utilities"></a>Utilities</h2><p>Medium 的工具 classes 包括一些低层次的结构和位置。工具类可以直接作用到任意的元素上；多个工具类可以同时使用；并且工具类可以和组件类同事使用。</p>
+<p>工具类的存在是因为特定的 CSS 属性和模式很常用。比如：浮动，内容浮动，垂直居中，文本截断等。通过工具类可以去重并且提供一致的实现。它们同时充当一个功能性（比如： non-polypill） mixin 的替代品。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"u-clearfix"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"u-textTruncate"</span>&gt;</span>&#123;$text&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"u-pullLeft"</span> <span class="attr">src</span>=<span class="string">"&#123;$src&#125;"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"u-pullLeft"</span> <span class="attr">src</span>=<span class="string">"&#123;$src&#125;"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"u-pullLeft"</span> <span class="attr">src</span>=<span class="string">"&#123;$src&#125;"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><a name="u-utilityName"></a></p>
+<h3 id="u-utilityName"><a href="#u-utilityName" class="headerlink" title="u-utilityName"></a>u-utilityName</h3><p>语法: <code>u-&lt;utilityName&gt;</code></p>
+<p>工具类必须使用驼峰式命名法，使用 <code>u</code> 作为命名空间前缀。以下展示一个示例，怎样在一个组件中，使用不同的工具类建立一个简单的结构。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"u-clearfix"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"u-pullLeft"</span> <span class="attr">href</span>=<span class="string">"&#123;$url&#125;"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"u-block"</span> <span class="attr">src</span>=<span class="string">"&#123;$src&#125;"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"u-sizeFill u-textBreak"</span>&gt;</span></div><div class="line">    …</div><div class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><a name="components"></a></p>
+<h2 id="Components-组件"><a href="#Components-组件" class="headerlink" title="Components 组件"></a>Components 组件</h2><p>语法: <code>&lt;componentName&gt;[--modifierName|-descendantName]</code></p>
+<p>组件驱动开发为阅读和编写 HTML CSS 代码提供了很多好处：</p>
+<ul>
+<li>帮助区分组件 root 节点，子节点，以及修改器的 class。</li>
+<li>保持底层选择器的唯一性</li>
+<li>帮助从文档语义中分离展现语义</li>
+</ul>
+<p>你可以认为组件是一个封装了语义，样式和行为的特殊元素。</p>
+<p><a name="componentName"></a></p>
+<h3 id="ComponentName"><a href="#ComponentName" class="headerlink" title="ComponentName"></a>ComponentName</h3><p>组件名称必须使用驼峰式命名法。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.myComponent</span> &#123; <span class="comment">/* … */</span> &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">"myComponent"</span>&gt;</span></div><div class="line">  …</div><div class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><a name="componentName--modifierName"></a></p>
+<h3 id="componentName–modifierName"><a href="#componentName–modifierName" class="headerlink" title="componentName–modifierName"></a>componentName–modifierName</h3><p>组件修改器的作用是在某些方面修改基础组件的展现。修改器必须使用驼峰式命名法，并且使用两个分隔符与组件名称分割。修改器 class 必须在组件 class <em>之外</em> 被添加到 HTML 中。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Core button */</span></div><div class="line"><span class="selector-class">.btn</span> &#123; <span class="comment">/* … */</span> &#125;</div><div class="line"><span class="comment">/* Default button style */</span></div><div class="line"><span class="selector-class">.btn--default</span> &#123; <span class="comment">/* … */</span> &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"ban btn--primary"</span>&gt;</span>…<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><a name="componentName-descendantName"></a></p>
+<h3 id="componentName-descendantName"><a href="#componentName-descendantName" class="headerlink" title="componentName-descendantName"></a>componentName-descendantName</h3><p>一个组件后代是一个附加到一个组件子元素上的 class。它负责给特定组件的子元素提供展现。组件后代必须以驼峰式命名法命名。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">"tweet"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"tweet-header"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"tweet-avatar"</span> <span class="attr">src</span>=<span class="string">"&#123;$src&#125;"</span> <span class="attr">alt</span>=<span class="string">"&#123;$alt&#125;"</span>&gt;</span></div><div class="line">    …</div><div class="line">  <span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"tweet-body"</span>&gt;</span></div><div class="line">    …</div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><a name="is-stateOfComponent"></a></p>
+<h3 id="componentName-is-stateOfComponent"><a href="#componentName-is-stateOfComponent" class="headerlink" title="componentName.is-stateOfComponent"></a>componentName.is-stateOfComponent</h3><p>使用 <code>is-stateName</code> 来给状态相关的组件修改器命名。状态名称必须使用驼峰式命名法。<strong>永远不要直接给这些 class 定义样式；它们应该始终被当作辅助 class 使用。</strong></p>
+<p>JS 可以添加/删除这些 classes。这意味着相同的状态名称可以在不同的上下文同时使用，但是每个组件必须给状态定义自己的样式。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.tweet</span> &#123; <span class="comment">/* … */</span> &#125;</div><div class="line"><span class="selector-class">.tweet</span><span class="selector-class">.is-expanded</span> &#123; <span class="comment">/* … */</span> &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">"tweet is-expanded"</span>&gt;</span></div><div class="line">  …</div><div class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><a name="variables"></a></p>
+<h2 id="Variables-变量"><a href="#Variables-变量" class="headerlink" title="Variables 变量"></a>Variables 变量</h2><p>语法: <code>&lt;property&gt;-&lt;value&gt;[—componentName]</code></p>
+<p>我们的 CSS 中变量名也是严格限制格式的。这种语法为属性，使用和组件中提供了强关联。</p>
+<p>下面的变量定义是一个颜色属性，使用 grayLight 颜色，使用到 highlightMenu 组件中。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@color-grayLight—highlightMenu: rgb(51, 51, 50);</div></pre></td></tr></table></figure>
+<p><a name="colors"></a></p>
+<h3 id="Colors"><a href="#Colors" class="headerlink" title="Colors"></a>Colors</h3><p>当实现样式属性值时，你只可以使用 colors.less 提供的颜色变量。</p>
+<p>向 colors.less 中添加颜色变量时，优先使用 RGB 和 RGBA，而不是 hex，名称，HSL 或者 HSLA。</p>
+<p><strong>Right:</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">rgb</span>(50, 50, 50);</div><div class="line"><span class="selector-tag">rgba</span>(50, 50, 50, 0<span class="selector-class">.2</span>);</div></pre></td></tr></table></figure>
+<p><strong>Wrong:</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#FFF</span>;</div><div class="line"><span class="selector-id">#FFFFFF</span>;</div><div class="line"><span class="selector-tag">white</span>;</div><div class="line"><span class="selector-tag">hsl</span>(120, 100%, 50%);</div><div class="line"><span class="selector-tag">hsla</span>(120, 100%, 50%, 1);</div></pre></td></tr></table></figure>
+<p><a name="index"></a></p>
+<h3 id="z-index-scale"><a href="#z-index-scale" class="headerlink" title="z-index scale"></a>z-index scale</h3><p>请使用 z-index.less 文件中限制的 z-index 取值。</p>
+<p><code>@zIndex-1 - @zIndex-9</code> 可供选择。不应该有取值超过 <code>@zIndex-9</code>。</p>
+<p><a name="font weight"></a></p>
+<h3 id="Font-Weight"><a href="#Font-Weight" class="headerlink" title="Font Weight"></a>Font Weight</h3><p>由于 web fonts 的支持，<code>font-weight</code> 的角色比原来更加重要了。不像原来 <code>bold</code> 是个可以加粗文字的算法，现在不同的字重会渲染对应的不同文字。当然，使用 <code>font-weight</code> 的数值取值可以强化文本的展现。下面是一些指引。</p>
+<p>直接定义字重应该被避免，使用合适的字体变量：<code>.font-sansI7, .font-sansN7, 等等</code></p>
+<p>后缀定义了字重和样式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">N = normal</div><div class="line">I = italic</div><div class="line">4 = normal font-weight</div><div class="line">7 = bold font-weight</div></pre></td></tr></table></figure>
+<p>查看 type.less 来定义 type size, letter-spacing 和 line height。</p>
+<p>Raw sizes, spaces, and line heights 取值应该从 type.less 中选择。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ex</span>:</div><div class="line"></div><div class="line">@<span class="keyword">fontSize</span>-<span class="keyword">micro</span></div><div class="line">@fontSize-smallest</div><div class="line">@fontSize-smaller</div><div class="line">@fontSize-small</div><div class="line">@fontSize-base</div><div class="line">@fontSize-large</div><div class="line">@fontSize-larger</div><div class="line">@fontSize-largest</div><div class="line">@fontSize-jumbo</div></pre></td></tr></table></figure>
+<p>See <a href="https://developer.mozilla.org/en/CSS/font-weight" target="_blank" rel="external">Mozilla Developer Network — font-weight</a> for further reading.</p>
+<p><a name="line height"></a></p>
+<h3 id="Line-Height"><a href="#Line-Height" class="headerlink" title="Line Height"></a>Line Height</h3><p>Type.less 同时提供了行高标尺。它应该被用于块状文本。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ex</span>:</div><div class="line"></div><div class="line">@<span class="keyword">lineHeight</span>-<span class="keyword">tightest</span></div><div class="line">@lineHeight-tighter</div><div class="line">@lineHeight-tight</div><div class="line">@lineHeight-baseSans</div><div class="line">@lineHeight-base</div><div class="line">@lineHeight-loose</div><div class="line">@lineHeight-looser</div></pre></td></tr></table></figure>
+<p>Alternatively, when using line height to vertically center a single line of text, be sure to set the line height to the height of the container - 1.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.btn</span> &#123;</div><div class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">  <span class="attribute">line-height</span>: <span class="number">49px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a name="letterspacing"></a></p>
+<h3 id="Letter-spacing"><a href="#Letter-spacing" class="headerlink" title="Letter spacing"></a>Letter spacing</h3><p>文本间距同样需要从以下变量标尺中选择。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">letterSpacing</span>-<span class="keyword">tightest</span></div><div class="line">@letterSpacing-tighter</div><div class="line">@letterSpacing-tight</div><div class="line">@letterSpacing-normal</div><div class="line">@letterSpacing-loose</div><div class="line">@letterSpacing-looser</div><div class="line">​`</div></pre></td></tr></table></figure>
+<p><a name="polyfills"></a></p>
+<h2 id="Polyfills"><a href="#Polyfills" class="headerlink" title="Polyfills"></a>Polyfills</h2><p>mixin syntax: <code>m-&lt;propertyName&gt;</code></p>
+<p>在 Medium 我们只使用 mixin 来生成浏览器前缀 polyfills。</p>
+<p>border radius mixin 示例:</p>
+<p>​<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.m-borderRadius</span>(@<span class="keyword">radius</span>) &#123;</div><div class="line">  <span class="selector-tag">-webkit-border-radius</span>: @<span class="keyword">radius</span>;</div><div class="line">     <span class="selector-tag">-moz-border-radius</span>: @<span class="keyword">radius</span>;</div><div class="line">          <span class="selector-tag">border-radius</span>: @<span class="keyword">radius</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a name="formatting"></a></p>
+<h2 id="Formatting"><a href="#Formatting" class="headerlink" title="Formatting"></a>Formatting</h2><p>以下是高层次页面构建样式规则。</p>
+<p><a name="spacing"></a></p>
+<h3 id="Spacing"><a href="#Spacing" class="headerlink" title="Spacing"></a>Spacing</h3><p>CSS 规则需要逗号分割并另起一行：</p>
+<p><strong>Right:</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.content,</div><div class="line">.content-edit &#123;</div><div class="line">  …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Wrong:</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.content, .content-edit &#123;</div><div class="line">  …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>CSS 块需要间隔一行，不可以是两行也不可不隔行。</p>
+<p><strong>Right:</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">.content &#123;</div><div class="line">  …</div><div class="line">&#125;</div><div class="line">.content-edit &#123;</div><div class="line">  …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Wrong:</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.content &#123;</div><div class="line">  …</div><div class="line">&#125;</div><div class="line"></div><div class="line">.content-edit &#123;</div><div class="line">  …</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a name="quotes"></a></p>
+<h3 id="Quotes"><a href="#Quotes" class="headerlink" title="Quotes"></a>Quotes</h3><p>引号在 CSS 和 LESS 是可选的。我们使用双引号让视觉上更清楚的区分字符串和选择器或者样式属性。</p>
+<p><strong>Right:</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">background-image: url("/img/you.jpg");</div><div class="line">font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial;</div></pre></td></tr></table></figure>
+<p><strong>Wrong:</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">background-image: url(/img/you.jpg);</div><div class="line">font-family: Helvetica Neue Light, Helvetica Neue, Helvetica, Arial;</div></pre></td></tr></table></figure>
+<p><a name="performance"></a></p>
+<h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><p><a name="specificity"></a></p>
+<h3 id="Specificity"><a href="#Specificity" class="headerlink" title="Specificity"></a>Specificity</h3><p>虽然层叠式存在与名字（层递式样式表）中，它带来了非不要的性能问题。参照以下示例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ul</span><span class="selector-class">.user-list</span> <span class="selector-tag">li</span> <span class="selector-tag">span</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123; <span class="attribute">color</span>: red; &#125;</div></pre></td></tr></table></figure>
+<p>样式在页面渲染 layout 的过程中解析。选择器自右向左解析，在选择器无法适配时退出。因此，在上面的示例中，每一个 a 标签都会被检查是不是处在一个 span 和 li 中。就像想象中的一样，这需要一系列的 DOM 遍历，对于大型文档来说可以带来显著的 layout 耗时增加。访问 <a href="https://developers.google.com/speed/docs/best-practices/rendering#UseEfficientCSSSelectors" target="_blank" rel="external">https://developers.google.com/speed/docs/best-practices/rendering#UseEfficientCSSSelectors</a> 查看更多信息。</p>
+<p>如果只是想在 <code>.user-list</code> 下的所有 <code>a</code> 元素 hover 时变红，可以将样式简化为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.user-list</span> &gt; <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</div><div class="line">  <span class="attribute">color</span>: red;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果你只想给予 <code>.user-list</code> 下的部分 <code>a</code> 元素一些样式，可以给它们一个特定的 class：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.user-list</span> &gt; <span class="selector-class">.link-primary</span><span class="selector-pseudo">:hover</span> &#123;</div><div class="line">  <span class="attribute">color</span>: red;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Medium/" rel="tag"># Medium</a>
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/23/mediums-css-is-actually-pretty-fucking-good/" rel="next" title="Medium 的 CSS 真他*的好">
+                <i class="fa fa-chevron-left"></i> Medium 的 CSS 真他*的好
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/23/reactivity-system-of-vuejs/" rel="prev" title="Vuejs 中的 Reactivity 的实现">
+                Vuejs 中的 Reactivity 的实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="ZoomZhao" />
+          <p class="site-author-name" itemprop="name">ZoomZhao</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Medium-LESS-编码指引"><span class="nav-number">1.</span> <span class="nav-text">Medium LESS 编码指引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Utilities"><span class="nav-number">1.2.</span> <span class="nav-text">Utilities</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u-utilityName"><span class="nav-number">1.2.1.</span> <span class="nav-text">u-utilityName</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Components-组件"><span class="nav-number">1.3.</span> <span class="nav-text">Components 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ComponentName"><span class="nav-number">1.3.1.</span> <span class="nav-text">ComponentName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentName–modifierName"><span class="nav-number">1.3.2.</span> <span class="nav-text">componentName–modifierName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentName-descendantName"><span class="nav-number">1.3.3.</span> <span class="nav-text">componentName-descendantName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentName-is-stateOfComponent"><span class="nav-number">1.3.4.</span> <span class="nav-text">componentName.is-stateOfComponent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Variables-变量"><span class="nav-number">1.4.</span> <span class="nav-text">Variables 变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Colors"><span class="nav-number">1.4.1.</span> <span class="nav-text">Colors</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#z-index-scale"><span class="nav-number">1.4.2.</span> <span class="nav-text">z-index scale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Font-Weight"><span class="nav-number">1.4.3.</span> <span class="nav-text">Font Weight</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Line-Height"><span class="nav-number">1.4.4.</span> <span class="nav-text">Line Height</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Letter-spacing"><span class="nav-number">1.4.5.</span> <span class="nav-text">Letter spacing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Polyfills"><span class="nav-number">1.5.</span> <span class="nav-text">Polyfills</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Formatting"><span class="nav-number">1.6.</span> <span class="nav-text">Formatting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spacing"><span class="nav-number">1.6.1.</span> <span class="nav-text">Spacing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quotes"><span class="nav-number">1.6.2.</span> <span class="nav-text">Quotes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance"><span class="nav-number">1.7.</span> <span class="nav-text">Performance</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Specificity"><span class="nav-number">1.7.1.</span> <span class="nav-text">Specificity</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZoomZhao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
