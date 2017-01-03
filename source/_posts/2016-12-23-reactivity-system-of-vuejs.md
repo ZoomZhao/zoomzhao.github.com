@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Vuejs 中的 Reactivity 的实现
+title: Vuejs Reactivity 源码分析
 ---
 
 Reactivity (Vue 中文文档中翻译为响应式) 是 Vue 的非常关键的一部分。通过 Model 与视图的双向绑定，让使用者可以简单的更新页面状态，不再需要直接操作 DOM 进行处理。
