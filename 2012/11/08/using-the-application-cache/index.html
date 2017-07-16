@@ -1,0 +1,735 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Application Cache,AppCache,使用," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="原文链接地址 Using the application cache (MDN) 简介HTML5 提供了一套可以让 web 应用离线运行的机制，开发者可以使用 application cache（AppCache）接口定义浏览器需要缓存的供离线用户使用的资源。即便是用户在离线的情况下刷新页面，被缓存的应用都应该被正确的加载和运行。使用 AppCache 可以给应用带来如下的好处：  离线浏览：即便">
+<meta name="keywords" content="Application Cache,AppCache,使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Application Cache">
+<meta property="og:url" content="http://zoomzhao.github.com/2012/11/08/using-the-application-cache/index.html">
+<meta property="og:site_name" content="Zoom&#39;s Blog">
+<meta property="og:description" content="原文链接地址 Using the application cache (MDN) 简介HTML5 提供了一套可以让 web 应用离线运行的机制，开发者可以使用 application cache（AppCache）接口定义浏览器需要缓存的供离线用户使用的资源。即便是用户在离线的情况下刷新页面，被缓存的应用都应该被正确的加载和运行。使用 AppCache 可以给应用带来如下的好处：  离线浏览：即便">
+<meta property="og:updated_time" content="2016-12-23T09:55:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 Application Cache">
+<meta name="twitter:description" content="原文链接地址 Using the application cache (MDN) 简介HTML5 提供了一套可以让 web 应用离线运行的机制，开发者可以使用 application cache（AppCache）接口定义浏览器需要缓存的供离线用户使用的资源。即便是用户在离线的情况下刷新页面，被缓存的应用都应该被正确的加载和运行。使用 AppCache 可以给应用带来如下的好处：  离线浏览：即便">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zoomzhao.github.com/2012/11/08/using-the-application-cache/"/>
+
+
+
+
+
+  <title> 使用 Application Cache | Zoom's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Zoom's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zoomzhao.github.com/2012/11/08/using-the-application-cache/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="ZoomZhao">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Zoom's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Zoom's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用 Application Cache
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2012-11-08T00:12:02+08:00">
+                2012-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/front-end/" itemprop="url" rel="index">
+                    <span itemprop="name">front-end</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文链接地址 <a href="https://developer.mozilla.org/en/Offline_resources_in_Firefox" target="_blank" rel="external">Using the application cache (MDN)</a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>HTML5 提供了一套可以让 web 应用离线运行的机制，开发者可以使用 application cache（AppCache）接口定义浏览器需要缓存的供离线用户使用的资源。即便是用户在离线的情况下刷新页面，被缓存的应用都应该被正确的加载和运行。<br>使用 AppCache 可以给应用带来如下的好处：</p>
+<ul>
+<li>离线浏览：即便是在离线的情况下用户都可以访问网站。  </li>
+<li>速度提升：被缓存的资源是本地的，所以可以加载的更快。  </li>
+<li>减小服务器负载：浏览器只会加载服务器端已经更新的资源。</li>
+</ul>
+<a id="more"></a>
+<h2 id="AppCache-的工作方式"><a href="#AppCache-的工作方式" class="headerlink" title="AppCache 的工作方式"></a>AppCache 的工作方式</h2><h3 id="使用-AppCache"><a href="#使用-AppCache" class="headerlink" title="使用 AppCache"></a>使用 AppCache</h3><p>想要在应用中使用 AppCache，需要在应用页面的 <em>html</em> 节点上增加 <em>manifest</em> 属性，如下所示：  </p>
+<pre><code>&lt;html manifest=&quot;example.appcache&quot;&gt;  
+...   
+&lt;/html&gt;
+</code></pre><p><em>manifest</em> 属性链接到一个 <strong>cache manifest</strong> 文件，文件中列出了应用中需要缓存的资源列表。<br><em>manifest</em> 属性需要包含在每一个需要缓存的页面上。除非被显式的声明，浏览器不会缓存不包含 <em>manifest</em> 属性的页面。在 manifest 文件中不需要列出所有希望缓存的页面（pages），对于包含了 <em>manifest</em> 属性的页面，浏览器会隐式的将其缓存到 AppCache 中。  </p>
+<h3 id="加载文档"><a href="#加载文档" class="headerlink" title="加载文档"></a>加载文档</h3><p>使用 AppCache 会影响加载 document 的流程。    </p>
+<p>详细的加载主文档以及更新 AppCache 的过程如下所示：  </p>
+<ol>
+<li>当浏览器访问一个包含了 <em>manifest</em> 属性的页面时，如果 AppCache 不存在，浏览器会加载主文档，然后获取所有在 manifest 文件中列出的资源，创建 AppCache 的第一个版本。</li>
+<li>随后访问页面，从而浏览器会从 AppCache 中加载主文档以及其余的在 manifest 文件中定义的资源（不是从服务器获取）。此外，浏览器会向 <a href="https://developer.mozilla.org/en/DOM/window.applicationCache" target="_blank" rel="external">window.applicationCache</a> 对象发送一个 <em>checking</em> 事件，通过 HTTP 请求获取 manifest 文件。</li>
+<li>如果当前的 manifest 文件是最新的，浏览器发送一个 <em>noupdate</em> 事件给 <a href="https://developer.mozilla.org/en/DOM/window.applicationCache" target="_blank" rel="external">window.applicationCache</a> 对象，更新结束。需要强调的是，如果在服务器端更新了任何缓存中的资源文件，必须同时更新 manifest 文件，以保证浏览器知道需要重新获取所有资源。</li>
+<li>如果 manifest 文件已经更新，所有 manifest 文件中列出的文件（包括通过调用  <a href="https://developer.mozilla.org/en/nsIDOMOfflineResourceList#add.28.29" target="_blank" rel="external">applicationCache.add()</a> 添加的资源）都会遵循基础的 HTTP 缓存规则，被加载到一个临时缓存中。对于每一个加载到临时缓存区的文件，浏览器会发送一个 <em>progress</em> 事件给 <em>applicationCache</em> 对象，如果过程中出现了任何错误，浏览器会发送一个 <em>error</em> 事件，停止更新的过程。</li>
+<li>当浏览器收到所有的文件之后，他们自动会被移动到一个实际的离线缓存区，同时 <em>cahced</em> 事件被发送给 <em>applicationCache</em> 对象。由于主文档已经被从缓存中加载到浏览器中，已经更新的文档除非重新加载（包括人工或者程序内部）都不会被重新渲染。</li>
+</ol>
+<h3 id="缓存存储位置以及-AppCache-的清除"><a href="#缓存存储位置以及-AppCache-的清除" class="headerlink" title="缓存存储位置以及 AppCache 的清除"></a>缓存存储位置以及 AppCache 的清除</h3><p>在 Chrome 中，可以通过点击 “preferences” 下的 “Clear browsing data…” 或者访问 <a href="chrome://appcache-internals/" target="_blank" rel="external">chrome://appcache-internals/</a> 来清除离线缓存。Safari 在 “preferences” 中有一个类似的 “Empty cache” 设置项，但是设置之后需要重启浏览器。</p>
+<p>AppCache 同样可以过时，如果应用的 manifest 文件被从服务器端删除，浏览器会删除使用 manifest 的所有应用缓存，同时发送 <em>obsoleted</em> 事件给 <em>applicationCache</em> 对象。AppCache 的状态被设置为 OBSOLETE。</p>
+<h2 id="manifest-文件"><a href="#manifest-文件" class="headerlink" title="manifest 文件"></a>manifest 文件</h2><h3 id="引用一个-manifest-文件"><a href="#引用一个-manifest-文件" class="headerlink" title="引用一个 manifest 文件"></a>引用一个 manifest 文件</h3><p>web 应用中的 <em>manifest</em> 属性，可以通过相对路径和绝对路径（需要和 web 应用在同一个域下）两种方式进行。manifest 文件可以有任意的后缀，但是 MIME type 必须是 <em>text/cache-manifest</em>。</p>
+<h3 id="manifest-文件中的条目"><a href="#manifest-文件中的条目" class="headerlink" title="manifest 文件中的条目"></a>manifest 文件中的条目</h3><p>manifest 文件是一个列出了浏览器需要缓存的文件的简单文本文件。资源通过 URI 进行识别。manifest 中列出的条目必须和 manifest 具有相同的域名和端口。</p>
+<h3 id="示例1：一个简单的-manifest-文件"><a href="#示例1：一个简单的-manifest-文件" class="headerlink" title="示例1：一个简单的 manifest 文件"></a>示例1：一个简单的 manifest 文件</h3><p>下面是一个简单 manifest 文件示例， 示例网站 www.example.com 下的 <em>example.appcache</em>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">CACHE MANIFEST  </div><div class="line"># v1 - 2011-08-13  </div><div class="line"># This is a comment.  </div><div class="line">http://www.example.com/index.html    </div><div class="line">http://www.example.com/header.png  </div><div class="line">http://www.example.com/blah/blah</div></pre></td></tr></table></figure>
+<p>manifest 文件可以包含三段 （CACHE、NETWORK 和 FALLBACK）。在上面的示例中，没有分段，所以所有的列出的行都会被放到默认的段（CACHE）中去，表示浏览器应该在 AppCache 中缓存所有的资源。</p>
+<p>示例中的 “v1” 存在的原因如下：浏览器仅在 manifest 文件变化后才会更新 AppCache，如果更新了一个缓存了的资源（例如，更新了缓存中的 <em>header.png</em> 文件），必须更新 manifest 文件，从而让浏览器知道它需要更新缓存。对于 manifest 文件的所有修改都是可以的，但是推荐使用修改版本号的形式实现。<br><strong>注意：不要在 manifest 文件中缓存自身，否则想要通知浏览器 manifest 更新是几乎不可能的</strong></p>
+<h3 id="manifest-文件中的三段-CACHE，NERWORK-以及-FALLBACK"><a href="#manifest-文件中的三段-CACHE，NERWORK-以及-FALLBACK" class="headerlink" title="manifest 文件中的三段 CACHE，NERWORK 以及 FALLBACK"></a>manifest 文件中的三段 CACHE，NERWORK 以及 FALLBACK</h3><p>一个 manifest 文件可以包含三个分段：CACHE，NETWORK 和 FALLBACK。</p>
+<p>CACHE：<br>这是 <em>manifest</em> 文件中条目的默认分段，在 CACHE 段中列出的文件在第一次下载后会被缓存。<br>NETWORK：<br>在 NETWORK 段下的文件建立了需要建立网络连接的白名单。即便是用户离线的情况下，所有此段下的资源会绕过缓存。可以使用通配符。<br>FALLBACK：<br>FALLBACK 段下的内容定义了资源不可用的情况下的备用资源。所有此段下的条目包含两个 URI，第一个是资源链接，第二个是备用资源链接。所有的 URI 同样不可以跨域。通配符也是可用的。</p>
+<p>CACHE，NETWORk 和 FALLBACK 三个段在 manifest 文件中出现的顺序是随意的，并且每个段在文件中出现的次数没有限制。</p>
+<h3 id="示例2：一个更加完整的-manifest-文件"><a href="#示例2：一个更加完整的-manifest-文件" class="headerlink" title="示例2：一个更加完整的 manifest 文件"></a>示例2：一个更加完整的 manifest 文件</h3><p>以下是一个假象网站 www.example.com 下的更加完整点的 manifest 文件。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">CACHE MANIFEST  </div><div class="line"># v1 2011-08-14  </div><div class="line"># This is another comment </div><div class="line">index.html  </div><div class="line">cache.html  </div><div class="line">style.css  </div><div class="line">image1.png</div><div class="line"></div><div class="line"># Use from network if available  </div><div class="line">NETWORK:</div><div class="line">network.html</div><div class="line"></div><div class="line"># Fallback content  </div><div class="line">FALLBACK:   </div><div class="line">/ fallback.html</div></pre></td></tr></table></figure>
+<p>示例使用了 NETWORK 和 FALLBACK 段，定义了 <code>network.html</code>  必须从直接从服务器获取，<code>fallback.html</code> 备网站链接 / 无法访问的情况下访问。</p>
+<h3 id="manifest-文件结构"><a href="#manifest-文件结构" class="headerlink" title="manifest 文件结构"></a>manifest 文件结构</h3><p>manifest 文件必须以 text/cache-manifest 的 MIME type 返回。<br>manifest 文件是一个 UTF-8 编码的文本文件，可以包含 BOM 头。文件第一行必须包含 ‘CACHE MANIFEST’ （中间以空格隔开）字符串，MANIFEST 后需要接一个或者多个空白字符，所有其他文本都会被忽略。<br>文件中的其余部分必须由以下各行组成：  </p>
+<ul>
+<li><strong>空白行</strong><br>可以使用包含任意多个空格或 Tab 的空白行  </li>
+<li><strong>注释</strong><br>注释行需要以 # 加任意多个空白字符开始，后面可以包含任意字符。只能注释单行，不能注释一个片段。  </li>
+<li><strong>段头</strong><br>共有三个可选的段头取值：<br>CACHE：   切换到缓存段。<br>NETWORK： 切换到白名单段。<br>FALLBACK：切换到备用段。<br>段头可以包含空包字符，但是必须包含 “:” 。</li>
+<li><strong>规则</strong><br>行的格式决定于到底属于哪个段，在 CACHE 段中，每一行是指向需要缓存的资源的 URI 或者 IRI （不能包含通配符）。行的开头和结尾处可以存在空白符。FALLBACK 行包含两个指向资源的 URI 或者 IRI。NETWORK 段中的内容同样包含一个 URI 或 IRI （可以使用通配符 <em> ）。<br><em>*注意：相对 URI，相对于 manifest 文件的 URI，而不是包含 manifest 的 document</em></em>  </li>
+</ul>
+<h2 id="AppCache-中的资源"><a href="#AppCache-中的资源" class="headerlink" title="AppCache 中的资源"></a>AppCache 中的资源</h2><p>一个 AppCache 通常包含一个资源，通过 URI 识别。<br><strong>注意：资源可以属于多个分类，比如可以同时属于 CACHE 和 FALLBACK</strong><br>资源分类的详情如下：  </p>
+<ul>
+<li><strong>Master Entries</strong><br>Master Entries 是任何在 <code>&lt;html&gt;</code> 标签中包含了 manifest 属性的  HTML 文件，例如有一个 HTML 文件， <a href="http://www.example.com/entry.html，代码如下：" target="_blank" rel="external">http://www.example.com/entry.html，代码如下：</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;html manifest=&quot;example.appcache&quot;&gt;  </div><div class="line">  &lt;h1&gt;Application Cache Example&lt;/h1&gt;  </div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>如果 entry.html 并没有在 <em>example.appcache</em> 中列出来，访问 entry.html 时，会将其自身作为 Master Entries 加入到 AppCache 中。</p>
+<ul>
+<li><p><strong>Explicit Entries</strong><br>Explicit Entries 是在 manifest 文件中的 CACHE 段中列出的资源。</p>
+</li>
+<li><p><strong>Network entries</strong><br>manifest 文件中的 NETWORK 段中包含 web 应用需要联网的资源，Network entries 实际上是需要请求服务器而不访问缓存的白名单<br><strong>注意：在 manifest 文件中简单的覆盖 Master Entries 导致的结果是不确定的，因为 Master Entries 是在后续访问页面时被添加到 AppCache 的</strong></p>
+</li>
+<li><p><strong>Fallback entries</strong><br>Fallback entries 的用处在资源加载失败时。</p>
+</li>
+</ul>
+<h2 id="缓存状态"><a href="#缓存状态" class="headerlink" title="缓存状态"></a>缓存状态</h2><p>每个 AppCache 都会有一个状态，用来标示缓存的当前状态，用来相同 manifest URI 的缓存，享有同样的状态，所有的状态列表如下：</p>
+<ul>
+<li><strong>UNCACHED</strong><br>特殊值，表明 AppCache 还未被完全初始化。  </li>
+<li><strong>IDLE</strong><br>AppCache 当前不在被更新的过程中。  </li>
+<li><strong>CHECKING</strong><br>manifest 文件正在被加载或者检查是否已更新。  </li>
+<li><strong>DOWNLOADING</strong><br>资源正在被下载到缓存中，会导致 manifest 中的资源更新。  </li>
+<li><strong>UPDATEREADY</strong><br>存在更新的 AppCache，当新的缓存已经被下载但是没有使用 swapCache 方法更新的时候，相应的会触发 <em>updateready</em> 事件，而不是 <em>cached</em> 事件。  </li>
+<li><strong>OBSOLETE</strong><br>AppCache 已经过时。  </li>
+</ul>
+<h2 id="检测-manifest-文件是否已经更新"><a href="#检测-manifest-文件是否已经更新" class="headerlink" title="检测 manifest 文件是否已经更新"></a>检测 manifest 文件是否已经更新</h2><p>可以在程序中使用 JavaScript 检测 manifest 文件是否已更新，由于有可能在脚本添加更新的事件监听之前 manifest 文件已经更新，所以脚本应该检查 <code>window.applicationCache.status</code>。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function onUpdateReady() &#123;  </div><div class="line">  alert(&apos;found new version!&apos;);  </div><div class="line">&#125;  </div><div class="line">window.applicationCache.addEventListener(&apos;updateready&apos;, onUpdateReady);  </div><div class="line">if(window.applicationCache.status === window.applicationCache.UPDATEREADY) &#123;  </div><div class="line">  onUpdateReady();  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>需要手动测试新的 manifest 文件时，可以使用 <code>window.applicationCache.update()</code> 方法。</p>
+<h2 id="需要注意的点"><a href="#需要注意的点" class="headerlink" title="需要注意的点"></a>需要注意的点</h2><ul>
+<li>永远不要通过增加 GET 参数的方式（例如：<code>other-cached-page.html?parameterName=value</code>）获取缓存的文件，这会导致浏览器忽略缓存直接从网络获取文件。如果需要链接到有参数传递的资源，在 hash 上增加参数，例如：<code>other-cached-page.html#whatever?parameterName=value</code>。  </li>
+<li>当应用被缓存后，简单的更新资源文件是不够的。必须手动更新 manifest 文件，从而让浏览器使用新的文件。可以在程序内通过 <code>window.applicationCache.swapCache()</code> 方法来更新文件，但是已经被加载的资源不会受影响。</li>
+<li>服务器端设置 <code>*.appcache</code> 文件的 expires headers 为立即过期是个很好的做法，这样可以避免 manifest 文件被缓存带来的风险。例如，在 Apache 中可以添加如下设置：<br><code>ExpiresByType text/cache-manifest &quot;access plus 0 seconds&quot;</code></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Application-Cache/" rel="tag"># Application Cache</a>
+          
+            <a href="/tags/AppCache/" rel="tag"># AppCache</a>
+          
+            <a href="/tags/使用/" rel="tag"># 使用</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/03/18/css-vertical-align/" rel="next" title="理解 CSS 的 vertical-align 属性">
+                <i class="fa fa-chevron-left"></i> 理解 CSS 的 vertical-align 属性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/11/11/application-cache-is-a-douchebag/" rel="prev" title="Application Cache 就是个坑">
+                Application Cache 就是个坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="ZoomZhao" />
+          <p class="site-author-name" itemprop="name">ZoomZhao</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AppCache-的工作方式"><span class="nav-number">2.</span> <span class="nav-text">AppCache 的工作方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-AppCache"><span class="nav-number">2.1.</span> <span class="nav-text">使用 AppCache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载文档"><span class="nav-number">2.2.</span> <span class="nav-text">加载文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存存储位置以及-AppCache-的清除"><span class="nav-number">2.3.</span> <span class="nav-text">缓存存储位置以及 AppCache 的清除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#manifest-文件"><span class="nav-number">3.</span> <span class="nav-text">manifest 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引用一个-manifest-文件"><span class="nav-number">3.1.</span> <span class="nav-text">引用一个 manifest 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#manifest-文件中的条目"><span class="nav-number">3.2.</span> <span class="nav-text">manifest 文件中的条目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例1：一个简单的-manifest-文件"><span class="nav-number">3.3.</span> <span class="nav-text">示例1：一个简单的 manifest 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#manifest-文件中的三段-CACHE，NERWORK-以及-FALLBACK"><span class="nav-number">3.4.</span> <span class="nav-text">manifest 文件中的三段 CACHE，NERWORK 以及 FALLBACK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例2：一个更加完整的-manifest-文件"><span class="nav-number">3.5.</span> <span class="nav-text">示例2：一个更加完整的 manifest 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#manifest-文件结构"><span class="nav-number">3.6.</span> <span class="nav-text">manifest 文件结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AppCache-中的资源"><span class="nav-number">4.</span> <span class="nav-text">AppCache 中的资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存状态"><span class="nav-number">5.</span> <span class="nav-text">缓存状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测-manifest-文件是否已经更新"><span class="nav-number">6.</span> <span class="nav-text">检测 manifest 文件是否已经更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要注意的点"><span class="nav-number">7.</span> <span class="nav-text">需要注意的点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZoomZhao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
